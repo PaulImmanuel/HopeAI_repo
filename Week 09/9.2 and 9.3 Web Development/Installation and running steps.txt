@@ -1,0 +1,135 @@
+# Employee Attrition Prediction Web Application - Installation Guide
+
+## 1. Install Anaconda
+
+Download and install:
+https://www.anaconda.com/download
+
+Verify:
+conda --version
+
+
+---
+
+# 2. Create Environment
+
+Open Anaconda Prompt:
+conda create -n attrition_web python=3.11
+
+Activate:
+conda activate attrition_web
+
+
+Verify:
+python --version
+
+
+Expected:
+Python 3.11.x
+
+---
+
+# 3. Install Required Packages
+
+pip install django
+pip install pandas
+pip install numpy==2.3.5
+pip install scikit-learn==1.7.2
+pip install django-crispy-forms
+pip install crispy-bootstrap4
+
+
+Verify:
+python -c "import django, sklearn, numpy; print(django.get_version()); print(sklearn.__version__); print(numpy.__version__)"
+
+
+Expected:
+5.2.x
+1.7.2
+2.3.5
+
+---
+
+# 4. Create and Open Project Folder
+
+
+django-admin startproject attritionProject
+cd attritionProject
+django-admin startapp attritionApp
+
+---
+
+# 5. Verify Required Files
+
+Project should contain:
+
+attritionProject/
+│
+├── attritionApp/
+├── attritionProject/
+├── manage.py
+├── AttritionModel.sav
+├── SelectedFeatures.sav
+├── encoder_columns.sav
+
+---
+
+# 6. Create Database
+
+Generate migrations:
+python manage.py makemigrations
+
+
+Apply migrations:
+python manage.py migrate
+
+
+Expected:
+Applying attritionApp.0001_initial... OK
+
+---
+
+# 7. Run Server
+
+python manage.py runserver
+
+Expected:
+Starting development server at:
+http://127.0.0.1:8000/
+
+---
+
+# 8. Open Website
+
+Open browser:
+http://127.0.0.1:8000/
+
+---
+
+# 9. Sample Test Values
+
+Age = 28
+DailyRate = 800
+DistanceFromHome = 5
+EmployeeNumber = 100
+MonthlyIncome = 25000
+MonthlyRate = 10000
+TotalWorkingYears = 6
+YearsAtCompany = 4
+YearsInCurrentRole = 3
+YearsWithCurrManager = 2
+
+JobRole Sales Representative = No
+OverTime Yes = Yes
+
+Expected:
+Employee is likely to stay in the company.
+
+---
+
+Whenever reopening the project:
+conda activate attrition_web
+cd "PROJECT_FOLDER_PATH"
+python manage.py runserver
+
+

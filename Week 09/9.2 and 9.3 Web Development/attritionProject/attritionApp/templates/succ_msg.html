@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block body_block %}
+
+<div class="jumbotron">
+
+<h1>Employee Attrition Prediction</h1>
+
+<hr>
+<p><b>Age:</b> {{ age }}</p>
+<p><b>Monthly Income:</b> {{ income }}</p>
+<p><b>Total Working Years:</b> {{ total_years }}</p>
+<p><b>Years At Company:</b> {{ company_years }}</p>
+<p><b>Years In Current Role:</b> {{ role_years }}</p>
+<p><b>Years With Current Manager:</b> {{ manager_years }}</p>
+<hr>
+
+{% if out == 1 %}
+<h3>Employee is likely to leave the company.</h3>
+{% else %}
+<h3>Employee is likely to stay in the company.</h3>
+{% endif %}
+</div>
+{% endblock %}
