@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PaulTech</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+  <!-- ===== STATIC LANDING PAGE ===== -->
+  <header class="navbar">
+    <div class="logo">Paul<span>Tech</span></div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Services</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Powering the Future<br/>with <span>AI & Technology</span></h1>
+      <p>We build intelligent AI solutions, modern web applications, and seamless mobile experiences for businesses worldwide.</p>
+      <div class="hero-buttons">
+        <a href="#services" class="btn-primary">Our Services</a>
+        <a href="#contact" class="btn-outline">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="services" id="services">
+    <h2>What We Do</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🤖</div>
+        <h3>AI Solutions</h3>
+        <p>Custom AI models, chatbots, and automation tailored to your business needs.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌐</div>
+        <h3>Web Development</h3>
+        <p>Fast, responsive, and beautiful websites built with modern technologies.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📱</div>
+        <h3>Mobile Apps</h3>
+        <p>Cross-platform mobile applications for iOS and Android that users love.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="about">
+    <div class="about-content">
+      <h2>About Us</h2>
+      <p>Led by <strong>John Smith</strong>, PaulTech has been helping businesses embrace the digital age. Our team of experts works Monday to Friday, 9 AM – 6 PM to deliver exceptional results.</p>
+      <div class="contact-info" id="contact">
+        <div class="info-item">📞 <span>9876543210</span></div>
+        <div class="info-item">✉️ <span>contact@abc.com</span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>© 2025 PaulTech. All rights reserved.</p>
+  </footer>
+
+  <!-- ===== FLOATING CHAT WIDGET ===== -->
+  <div class="chat-widget" id="chatWidget">
+    <div class="chat-header">
+      <div class="chat-header-info">
+        <div class="chat-avatar">🤖</div>
+        <div>
+          <div class="chat-title">PaulTech Assistant</div>
+          <div class="chat-status">Online</div>
+        </div>
+      </div>
+      <button class="chat-close" onclick="toggleChat()">✕</button>
+    </div>
+    <div class="chat-box" id="chat-box">
+      <div class="message bot">Hi! 👋 How can I help you today?</div>
+    </div>
+    <div class="chat-input-area">
+      <input type="text" id="user-input" placeholder="Type a message..." autocomplete="off" />
+      <button class="send-btn" onclick="sendMessage()">➤</button>
+    </div>
+  </div>
+
+  <button class="chat-toggle-btn" id="chatToggleBtn" onclick="toggleChat()" title="Chat with us">
+    💬
+  </button>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
