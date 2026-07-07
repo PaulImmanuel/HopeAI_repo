@@ -1,0 +1,2 @@
+2026-07-07 10:20:54,230 - INFO - [ConcurrentFuturesInstrumentor] Successfully instrumented concurrent.futures.ThreadPoolExecutor
+2026-07-07 10:20:55,111 - INFO - You're on the agentops free plan 🤔
