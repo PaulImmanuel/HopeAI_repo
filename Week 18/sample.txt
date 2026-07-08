@@ -1,0 +1,1 @@
+LangChain is a framework for building applications with LLMs.LangChain was created by Harrison Chase.LangChain supports RAG, agents, memory, tools, and more.It’s commonly used in chatbots, document Q&A, and AI workflow
