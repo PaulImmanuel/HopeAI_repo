@@ -1,0 +1,19 @@
+conda create -n mcp python=3.14 -y
+conda activate mcp
+pip install uv
+
+Setting Up the Project Directory:
+uv init sqlite_mcp_langchain_gemini
+cd sqlite_mcp_langchain_gemini
+
+Toml Sync:
+uv add mcp==1.21.0 langchain==1.0.5 langchain-mcp-adapters==0.1.12 langgraph==1.0.2 langchain-google-genai==3.0.1
+
+
+
+git clone https://github.com/modelcontextprotocol/servers-archived
+
+
+To run:
+Step 5:
+uv run python "sqlite mcp.py"
