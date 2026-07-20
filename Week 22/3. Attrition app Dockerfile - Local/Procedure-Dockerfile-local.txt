@@ -1,0 +1,52 @@
+Stpe1: Install the downloaded .exe file.
+
+Step2: Download Docker SDK
+
+from below link you can download the docker for windows
+
+https://docs.docker.com/desktop/install/windows-install/
+
+Step3: Install the downloaded file 
+
+Step4: After installation, open --> Command Prompt
+
+Step5:Navigate to the working Directory
+
+Step6: issue this command "docker --version" --> if it is installed properly, it gives the docker version.
+
+Step7: open the working folder in the windows and right click-->New--> Text Document
+
+Step8: paste this code
+
+# Use an official Python runtime as the base image
+FROM python:3.11-slim
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the current directory contents into the container at /app
+COPY . /app
+
+# Install required Python packages from the requirements file
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Expose the port that the Flask app will run on
+#EXPOSE 5000
+
+# Set the default command to run the Flask app (point to main.py)
+#CMD ["python", "main.py"]
+#CMD exec gunicorn --bind :$PORT --worker 1 --theards 8 --timeout 0 app:main
+CMD ["gunicorn", "--bind", ":5000", "--workers", "1", "--threads", "8", "--timeout", "0", "main:app"]
+
+
+Step9:Go to command prompt and Make you are in the working directory 
+
+issue this command "ren Dockerfile.txt Dockerfile" --> this removes the .txt file extension.
+
+Step10:docker build -t your_image_name .
+
+Step11: docker run -p 5000:5000 your_image_name
+
+
+
+

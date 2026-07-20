@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+flaskproj/
+venv*/
+env*/
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment variables
+.env
+.env.*
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build
+build/
+dist/
+*.egg-info/
+
+# Python cache
+.pytest_cache/
+.mypy_cache/
+
+# Coverage
+.coverage
+htmlcov/
+
+# Model cache (optional)
+.cache/
+
+# Temporary files
+*.tmp
+*.bak

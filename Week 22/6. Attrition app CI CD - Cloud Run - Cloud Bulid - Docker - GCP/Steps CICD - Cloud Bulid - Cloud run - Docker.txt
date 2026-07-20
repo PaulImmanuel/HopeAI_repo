@@ -1,0 +1,73 @@
+Install Git - Download from Internet
+
+Check correct installation
+Issue this command in the command Prompt
+git --version
+
+Open Command Prompt
+
+git config --global user.name xyzxyzyxz
+git config --global user.email xyzxyzxyz@gmail.com
+
+
+Open Git bash
+
+Generate the key (use your email):
+ssh-keygen -t rsa -b 4096 -C "xyzxyzxyz@gmail.com"
+
+When it asks:
+Enter file in which to save the key (/c/Users/Paul/.ssh/id_rsa):
+
+press Enter.
+
+Enter passphrase (empty for no passphrase):
+
+For a test project, just press Enter twice (leave it empty). If you want extra security, you can set one.
+
+Start the SSH agent:
+eval "$(ssh-agent -s)"
+
+Add the key:
+ssh-add ~/.ssh/id_rsa
+Copy the public key:
+clip < ~/.ssh/id_rsa.pub
+
+Then go to GitHub → Settings → SSH and GPG keys → New SSH key, paste it, and save.
+
+Test it:
+ssh -T git@github.com
+
+The first time, type:
+yes
+
+You should then see:
+Hi xyzxyzxyz! You've successfully authenticated, but GitHub does not provide shell access.
+
+
+
+Go to GitHub and create a new repository.
+Now chose/create any folder in your desired local pc location and open cmd there.
+
+git clone git@github.com:PaulImmanuel/ci-cd-hopeAI-week-22.git -->(Automatically it creates folder in the working directory system)
+
+cd "ci-cd-hopeAI-week-22"
+
+copy all the files and paste it to the created directory
+
+git add .
+git commit -m "Initial commit"
+git push origin main
+
+__________________________________________
+
+go to gcp and create a new project.
+search and go to "cloud build" --> repositories --> "1st gen" --> scroll down --> connect repository 
+
+when asked, give access to only use the specific repository you created few mins ago.(since its a temporary test project)
+
+Now, go to Triggers --> "create a trigger"
+give any name, select the repository, branch= .*(any branch), service account=(select your repository) --->Create
+
+
+Now, in gcp, go to "cloud run" --> services --> select the service using checkbox --> permissions --> add principal
+-->allUsers --> role: cloud run --> cloud run invoker -->save.

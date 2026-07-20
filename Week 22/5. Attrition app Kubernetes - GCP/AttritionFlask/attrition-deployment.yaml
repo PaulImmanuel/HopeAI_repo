@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: attrition-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: attrition-app
+  template:
+    metadata:
+      labels:
+        app: attrition-app
+    spec:
+      containers:
+      - name: attrition-app
+        image: gcr.io/attrition-kubernetes-gcp/attrition_app
+        ports:
+        - containerPort: 8080  # Change to 8080 if that is your app's listening port
