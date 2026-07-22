@@ -1,0 +1,8 @@
+s3-path:
+s3://employee-attrition-paul/employee-data/HR-Employee-Attrition.csv
+______________________________________
+framework_version 1.2-1 
+Model S3 URI: 
+s3://employee-attrition-paul/employee-data/output/sagemaker-scikit-learn-2026-07-22-05-07-53-983/output/model.tar.gz
+______________________________________
+
