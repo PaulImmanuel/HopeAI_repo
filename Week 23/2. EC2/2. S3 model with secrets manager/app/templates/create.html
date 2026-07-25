@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block body_block %}
+
+<div class="jumbotron">
+
+<h2>Employee Attrition Prediction</h2>
+
+<form action="{{ url_for('predict') }}" method="POST">
+
+<div class="form-group">
+<label>Age</label>
+<input type="number" name="Age" class="form-control" required>
+</div>
+
+<div class="form-group">
+<label>Daily Rate</label>
+<input type="number" name="DailyRate" class="form-control" required>
+</div>
+
+<div class="form-group">
+<label>Distance From Home</label>
+<input type="number" name="DistanceFromHome" class="form-control" required>
+</div>
+
+<div class="form-group">
+<label>Employee Number</label>
+<input type="number" name="EmployeeNumber" class="form-control" required>
+</div>
+
+<div class="form-group">
+<label>Monthly Income</label>
+<input type="number" name="MonthlyIncome" class="form-control" required>
+</div>
+
+<div class="form-group">
+<label>Monthly Rate</label>
+<input type="number" name="MonthlyRate" class="form-control" required>
+</div>
+
+<div class="form-group">
+<label>Total Working Years</label>
+<input type="number" name="TotalWorkingYears" class="form-control" required>
+</div>
+
+<div class="form-group">
+<label>Years At Company</label>
+<input type="number" name="YearsAtCompany" class="form-control" required>
+</div>
+
+<div class="form-group">
+<label>Years In Current Role</label>
+<input type="number" name="YearsInCurrentRole" class="form-control" required>
+</div>
+
+<div class="form-group">
+<label>Years With Current Manager</label>
+<input type="number" name="YearsWithCurrManager" class="form-control" required>
+</div>
+
+<div class="form-group">
+<label>Job Role: Sales Representative?</label>
+<select name="JobRole_Sales_Representative" class="form-control">
+    <option value="0">No</option>
+    <option value="1">Yes</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Over Time?</label>
+<select name="OverTime_Yes" class="form-control">
+    <option value="0">No</option>
+    <option value="1">Yes</option>
+</select>
+</div>
+
+<button type="submit" class="btn btn-primary">Predict</button>
+
+</form>
+
+</div>
+
+{% endblock %}       

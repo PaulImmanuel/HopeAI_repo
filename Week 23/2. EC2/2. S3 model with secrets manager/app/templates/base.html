@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Employee Attrition Prediction</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+    body{
+        background-image:url("{{ url_for('static', filename='output_image/backgroud.PNG') }}");
+        background-repeat:no-repeat;
+        background-size:cover;
+    }
+
+    .navbar-default{
+        background-color:#075E54;
+    }
+
+    </style>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-sm navbar-dark navbar-default">
+
+    <a class="navbar-brand" href="/">Home</a>
+
+</nav>
+
+<div class="container mt-4">
+
+{% block body_block %}
+
+{% endblock %}
+
+</div>
+
+</body>
+
+</html>

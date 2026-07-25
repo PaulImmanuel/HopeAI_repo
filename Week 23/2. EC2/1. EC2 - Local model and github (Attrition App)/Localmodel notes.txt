@@ -1,0 +1,17 @@
+server {
+    listen 80;
+    server_name 13.233.37.102;  # or your domain if you have
+    location / {
+        proxy_pass http://127.0.0.1:5000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+
+used: 
+git clone https://github.com/PaulImmanuel/ci-cd-hopeAI-week-22.git
+
+gunicorn --preload -w 1 -b 0.0.0.0:5000 --timeout 120 main:app
