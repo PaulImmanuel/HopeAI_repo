@@ -1,0 +1,406 @@
+Step 1 - Configure AWS CLI
+
+aws --version
+aws configure
+
+Enter details from IAM user:
+Access Key ID:
+Secret Access Key:
+Region:ap-south-1
+Output:json
+_______________________________________________________
+
+Step 2 - Create an ECR Repository
+
+aws ecr create-repository --repository-name websiteaichatbot --region ap-south-1
+
+AWS will return JSON similar to:
+
+{                                                                                                                                                        
+    "repository": {
+        "repositoryArn": "arn:aws:ecr:ap-south-1:838993198759:repository/websiteaichatbot",
+        "registryId": "838993198759",
+        "repositoryName": "websiteaichatbot",
+        "repositoryUri": "838993198759.dkr.ecr.ap-south-1.amazonaws.com/websiteaichatbot",
+        "createdAt": "2026-07-27T07:19:46.147000+05:30",
+        "imageTagMutability": "MUTABLE",
+        "imageScanningConfiguration": {
+            "scanOnPush": false
+        },                                                                                                                                               
+        "encryptionConfiguration": {                                                                                                                     
+            "encryptionType": "AES256"                                                                                                                   
+        }                                                                                                                                                
+    }                                                                                                                                                    
+} 
+
+
+Save the repositoryUri.
+_______________________________________________________
+
+Step 3 - Login Docker to ECR
+
+Run:
+
+aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 838993198759.dkr.ecr.ap-south-1.amazonaws.com
+_______________________________________________________
+
+Step 4 - Tag the Image
+
+If your repository URI is:
+838993198759.dkr.ecr.ap-south-1.amazonaws.com/websiteaichatbot
+_______________________________________________________
+
+Step 5 - Push to Amazon ECR (Important)
+⚠️ If using newer Docker Desktop (v4.7x or later)
+
+New Docker versions create an OCI Image Index, which AWS Lambda may reject. Instead of a normal push, build and push using Buildx with provenance disabled.
+
+docker buildx build --platform linux/amd64 --provenance=false --push -t 838993198759.dkr.ecr.ap-south-1.amazonaws.com/websiteaichatbot:latest .
+
+This produces a Lambda-compatible image.
+
+The first push can take several minutes...Once the push finishes, we'll go to the AWS Console:
+
+Amazon ECR
+    ↓
+Repositories
+    ↓
+websiteaichatbot
+    ↓
+Images
+
+The image should appear as: Type - Image
+
+
+=================================================================================
+
+Creating Lambda Function
+
+Go to:
+
+AWS Console
+    ↓
+Lambda
+    ↓
+Create Function
+
+Choose: Container Image
+
+Fill: Function Name: websiteaichatbot
+
+Browse Images > Select > websiteaichatbot
+
+Select latest tagged one
+
+Click Create Function
+
+====================================================================================
+
+
+Debugging errors.......
+
+
+Deploying a Flask + Gemini Chatbot to AWS Lambda (Docker)
+Prerequisites
+AWS Account
+AWS CLI installed and configured
+Docker Desktop installed and running
+Python project working locally
+Step 1: Create an ECR Repository
+
+AWS Console
+
+→ Elastic Container Registry (ECR)
+
+→ Create Repository
+
+Repository Name:
+
+websiteaichatbot
+
+Leave the remaining settings as default.
+
+Click Create Repository.
+
+Step 2: Build the Docker Image
+
+Open Command Prompt or PowerShell in your project folder.
+
+Build and push the image:
+
+docker buildx build --platform linux/amd64 --provenance=false --push -t 838993198759.dkr.ecr.ap-south-1.amazonaws.com/websiteaichatbot:latest .
+
+Wait until it finishes successfully.
+
+Step 3: Verify the Image
+
+Go to:
+
+AWS Console
+
+→ ECR
+
+→ websiteaichatbot
+
+You should see:
+
+latest
+Step 4: Create Lambda Function
+
+Go to:
+
+AWS Console
+
+↓
+
+Lambda
+
+↓
+
+Create Function
+
+Choose:
+
+Container Image
+
+Fill:
+
+Function Name:
+websiteaichatbot
+
+Click:
+
+Browse Images
+
+Select:
+
+websiteaichatbot
+
+Choose:
+
+latest
+
+Click:
+
+Create Function
+Step 5: Configure Lambda
+
+Open the Lambda function.
+
+Increase:
+
+Timeout:
+120 seconds
+
+Increase memory if needed (for example, 512 MB or higher depending on your application).
+
+Step 6: Add Environment Variables
+
+Lambda
+
+↓
+
+Configuration
+
+↓
+
+Environment Variables
+
+↓
+
+Edit
+
+↓
+
+Add
+
+Example:
+
+GEMINI_API_KEY=<your_api_key>
+
+Save.
+
+Step 7: Create API Gateway
+
+AWS Console
+
+↓
+
+API Gateway
+
+↓
+
+Create API
+
+↓
+
+HTTP API
+
+↓
+
+Build
+
+Step 8: Add Integration
+
+Choose:
+
+Lambda
+
+Select:
+
+websiteaichatbot
+
+Continue.
+
+Step 9: Add Routes
+
+Create routes:
+
+GET /
+POST /chat
+
+If your Lambda handles health checks:
+
+GET /health
+Step 10: Configure CORS (Important)
+
+Open:
+
+API Gateway
+
+↓
+
+Your HTTP API
+
+↓
+
+CORS
+
+Configure:
+
+Allowed Origins
+
+http://127.0.0.1:5000
+
+(or * for testing)
+
+Allowed Methods
+
+GET
+POST
+OPTIONS
+
+Allowed Headers
+
+Content-Type
+
+Save.
+
+This step is essential. Without proper CORS, the browser sends an OPTIONS request before the POST, and the chatbot will fail with errors like "Unable to reach the server."
+
+Step 11: Copy the Invoke URL
+
+Go to:
+
+Stages
+
+↓
+
+Default Stage
+
+Copy:
+
+Invoke URL
+
+Example:
+
+https://i2pw70vqk7.execute-api.ap-south-1.amazonaws.com
+Step 12: Update Frontend
+
+In static/script.js:
+
+const BASE_URL = "https://i2pw70vqk7.execute-api.ap-south-1.amazonaws.com";
+
+Then:
+
+fetch(`${BASE_URL}/chat`, {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        message: userMessage
+    })
+});
+Step 13: Run Flask
+python app.py
+
+Open:
+
+http://127.0.0.1:5000
+
+The frontend will now communicate with your AWS-hosted backend.
+
+Updating the Chatbot After Code Changes
+
+Whenever you modify the backend:
+
+1. Build and Push
+docker buildx build --platform linux/amd64 --provenance=false --push -t 838993198759.dkr.ecr.ap-south-1.amazonaws.com/websiteaichatbot:latest .
+2. Open Lambda
+websiteaichatbot
+3. Click
+Deploy new image
+
+Lambda pulls the updated Docker image from ECR.
+
+Testing the API
+
+PowerShell:
+
+Invoke-RestMethod -Uri "https://i2pw70vqk7.execute-api.ap-south-1.amazonaws.com/chat" `
+-Method POST `
+-ContentType "application/json" `
+-Body '{"message":"Hello"}'
+
+Expected response:
+
+{
+  "reply": "Hello! Welcome to PaulTech..."
+}
+Common Issues & Fixes
+1. Unable to reach the server
+
+Cause:
+
+CORS is not configured correctly.
+
+Fix:
+
+Enable CORS in API Gateway.
+Allow GET, POST, and OPTIONS.
+Allow the correct origin.
+2. 404 Not Found on OPTIONS /chat
+
+Cause:
+
+The browser's CORS preflight request isn't handled.
+
+Fix:
+
+Configure CORS properly in API Gateway so OPTIONS requests succeed.
+3. Lambda changes don't appear
+
+Fix:
+
+Build and push the new Docker image.
+Click Deploy new image in Lambda.
+4. Wrong API Gateway URL
+
+Symptoms:
+
+API works in Lambda tests but not from the frontend.
+
+Fix:
+
+Use the current API Gateway Invoke URL in script.js, not an older API endpoint.
